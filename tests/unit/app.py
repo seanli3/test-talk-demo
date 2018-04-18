@@ -18,7 +18,7 @@ def _(render_template, Flask, request, jsonify, calculateBmi, get_bmi_list, add_
       get_life_expectancy):
     from app import app
 
-    @it('starts a Flask app')
+    @it('is a Flask app')
     def start():
         assert app is mock_app
 
@@ -92,9 +92,9 @@ def _(render_template, Flask, request, jsonify, calculateBmi, get_bmi_list, add_
         bmis_fun = None
         @before
         def _():
+            nonlocal  bmis_fun
             args, kwargs = mock_decorator.call_args_list[2]
             bmis_fun = args[0]
-            nonlocal  bmis_fun
             bmis_fun()
 
         @it('calls cget_bmi_list')

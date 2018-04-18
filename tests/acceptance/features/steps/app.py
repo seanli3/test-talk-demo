@@ -1,9 +1,5 @@
-from behave import given, when, then, step
+from behave import given, when, then
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from redis import StrictRedis
 
 r = StrictRedis(host='localhost', port=6379, db=0)
