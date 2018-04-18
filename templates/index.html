@@ -1,0 +1,58 @@
+
+<html>
+  <script>
+    window.onload = getHistory;
+
+    function onSubmit() {
+      const weight = document.getElementsByName('weight')[0].value;
+      const height = document.getElementsByName('height')[0].value;
+      document.getElementById('submit').setAttribute('disabled', true);
+      fetch(`/api/bmi?weight=${weight}&height=${height}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('bmi').innerText=data.bmi;
+          document.getElementById('submit').removeAttribute('disabled');
+          getHistory();
+        });
+    }
+
+    function getHistory() {
+      fetch(`/api/bmis`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('bmi-history').innerText=data.join(', ');
+        });
+    }
+
+    function showDeath() {
+      fetch(`/api/life-expectancy`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('die-age').innerText=data.age;
+        });
+    }
+
+  </script>
+
+  <body style="margin-left:35%;margin-top: 5%">
+    <form>
+      Weight:
+      <br>
+      <input type="text" name="weight" value="100">
+      <br>
+      Height:
+      <br>
+      <input type="text" name="height" value="100">
+      <br><br>
+      <button id="submit" onclick="onSubmit()">Submit</button>
+    </form> 
+    <h2>Your BMI is:</h2>
+    <p id="bmi"></p>
+    <h2>BMI history</h2>
+    <p id="bmi-history"></p>
+    <h2>How long will I live?</h2>
+    <button id="death" onclick="showDeath()">Show</button>
+    <p id="die-age"></p>
+
+  </body>
+</html>
